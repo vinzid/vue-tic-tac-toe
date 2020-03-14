@@ -1,5 +1,5 @@
 <template>
-  <button class="square">
+  <button class="square" @click="setValue()">
     {{ value }}
   </button>
 </template>
@@ -7,6 +7,16 @@
 <script>
 export default {
   name: 'Square',
-  props: ['value']
+  //props: ['value'],
+  data() {
+    return {
+      value: null
+    }
+  },
+  methods: {
+    setValue() {
+      this.value = 'X';
+    }
+  }
 }
 </script>
