@@ -7,15 +7,10 @@
 <script>
 export default {
   name: 'Square',
-  //props: ['value'],
-  data() {
-    return {
-      value: null
-    }
-  },
+  props: ['square', 'value'],
   methods: {
     setValue() {
-      this.value = 'X';
+      this.$emit('click', this.square);
     }
   }
 }
