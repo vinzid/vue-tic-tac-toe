@@ -1,6 +1,6 @@
 <template>
   <div>
-    <div class="status">{{ status }}</div>
+    <div class="status">Next player: {{ next }}</div>
     <div class="board-row" v-for="row in board">
       <Square v-for="square in row" :square="square" :value="squares[square]" @click="handleClick" />
     </div>
@@ -14,20 +14,23 @@ export default {
   name: 'Board',
   data() {
     return {
-      status: 'Next player: X',
+      next: 'X',
       board: [
         [1, 2, 3],
         [4, 5, 6],
         [7, 8, 9]
       ],
       squares: Array(9).fill(null),
+      xIsNext: true
     }
   },
   methods: {
     handleClick(i) {
       const squares = this.squares.slice();
-      squares[i] = 'X';
+      squares[i] = this.xIsNext ? 'X' : 'O';
       this.squares = squares;
+      this.xIsNext = !this.xIsNext;
+      this.next = this.xIsNext ? 'X' : 'O';
     }
   },
   components: {
