@@ -1,11 +1,12 @@
 <template>
   <button class="square">
-    {{ /* TODO */ }}
+    {{ value }}
   </button>
 </template>
 
 <script>
 export default {
-  name: 'Square'
+  name: 'Square',
+  props: ['value']
 }
 </script>
