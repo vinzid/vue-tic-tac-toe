@@ -1,8 +1,8 @@
 <template>
   <div>
     <div class="status">Next player: {{ next }}</div>
-    <div class="board-row" v-for="row in board">
-      <Square v-for="square in row" :square="square" :value="squares[square]" @click="handleClick" />
+    <div class="board-row" v-for="(row, index) in board" :key="index">
+      <Square v-for="square in row" :key="square" :square="square" :value="squares[square]" @click="handleClick" />
     </div>
   </div>
 </template>
