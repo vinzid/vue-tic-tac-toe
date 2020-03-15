@@ -7,7 +7,7 @@
       <div class="game-info">
         <div>{{ status }}</div>
         <ol>
-          <li v-for="(squares, index) in history" :key="index">
+          <li v-for="(squares, index) in history" :key="index" :class="index === stepNumber ? 'move-on' : ''">
             <button @click="jumpTo(index)">{{ 0 === index ? 'Go to game start' : `Go to move #${index}` }}</button>
           </li>
         </ol>
@@ -58,6 +58,10 @@ export default {
       this.status = `Next player: ${this.xIsNext ? 'X' : 'O'}`;
     },
     jumpTo(step) {
+      if(step === this.stepNumber){
+        alert(`On move #${step} already!`);
+        return;
+      }
       this.stepNumber = step;
       this.xIsNext = (step % 2) === 0;
       this.status = `Next player: ${this.xIsNext ? 'X' : 'O'}`;
@@ -139,5 +143,18 @@ ol, ul {
 
 .game-info {
   margin-left: 20px;
+}
+
+.game-info button{
+  outline: none;
+  border-radius: 5px;
+}
+
+.game-info button:hover{
+  border-color: #666;
+}
+
+.move-on button{
+  border-color: #000;
 }
 </style>
