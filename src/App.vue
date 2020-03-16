@@ -2,7 +2,7 @@
   <div id="app">
     <div class="game">
       <div class="game-board">
-        <Board :squares="history[this.stepNumber].squares" @click="handleClick" />
+        <Board :squares="history[this.stepNumber].squares" />
       </div>
       <div class="game-info">
         <div>{{ status }}</div>
@@ -32,31 +32,6 @@ export default {
     }
   },
   methods: {
-    handleClick(i) {
-      const history = this.history.slice(0, this.stepNumber + 1);
-      const current = history[history.length - 1]
-      const squares = current.squares.slice();
-      if (calculateWinner(squares)) {
-        alert('Winner was determined!');
-        return;
-      }
-      if (squares[i]){
-        alert('Place was taken!');
-        return
-      }
-      squares[i] = this.xIsNext ? 'X' : 'O';
-      this.history = history.concat([{
-        squares: squares
-      }]);
-      this.stepNumber = history.length;
-      const winner = calculateWinner(squares);
-      if (winner) {
-        this.status = 'Winner: ' + winner;
-        return;
-      }
-      this.xIsNext = !this.xIsNext;
-      this.status = `Next player: ${this.xIsNext ? 'X' : 'O'}`;
-    },
     jumpTo(step) {
       if(step === this.stepNumber){
         alert(`On move #${step} already!`);
@@ -65,6 +40,35 @@ export default {
       this.stepNumber = step;
       this.xIsNext = (step % 2) === 0;
       this.status = `Next player: ${this.xIsNext ? 'X' : 'O'}`;
+    }
+  },
+  provide() {
+    return {
+      handleClick: i => {
+        const history = this.history.slice(0, this.stepNumber + 1);
+        const current = history[history.length - 1]
+        const squares = current.squares.slice();
+        if (calculateWinner(squares)) {
+          alert('Winner was determined!');
+          return;
+        }
+        if (squares[i]){
+          alert('Place was taken!');
+          return
+        }
+        squares[i] = this.xIsNext ? 'X' : 'O';
+        this.history = history.concat([{
+          squares: squares
+        }]);
+        this.stepNumber = history.length;
+        const winner = calculateWinner(squares);
+        if (winner) {
+          this.status = 'Winner: ' + winner;
+          return;
+        }
+        this.xIsNext = !this.xIsNext;
+        this.status = `Next player: ${this.xIsNext ? 'X' : 'O'}`;
+      },
     }
   },
   components: {

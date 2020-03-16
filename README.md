@@ -341,7 +341,41 @@ jumpTo(step) {
 ```
 
 Code for now 目前的代码
->git checkout master
+>git checkout 10-move
+
+
+### Use inject 使用注入
+
+Move handleClick in App.vue to provide, and delete @click attribute of Board element  
+将 App.vue 的 handleClick 移至 provide，并删除 Board 元素的 @click 属性
+```
+provide() {
+  return {
+    handleClick: i => {
+      const history = this.history.slice(0, this.stepNumber + 1);
+      ...
+```
+```
+<Board :squares="history[this.stepNumber].squares" />
+```
+
+Delete handleClick and @click attribute of Square element in Board.vue  
+将 Board.vue 里的 handleClick 和 Square 元素的 @click 属性删除
+```
+<Square v-for="square in row" :key="square" :square="square" :value="squares[square]" />
+```
+
+Add inject to Square.vue, and change emit click to handleClick  
+在 Square.vue 中增加 注入，并将触发点击改为 handleClick
+```
+inject: ['handleClick'],
+```
+```
+this.handleClick(this.square);
+```
+
+Code for now 目前的代码
+>git checkout  master
 
 
 

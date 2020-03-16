@@ -1,7 +1,7 @@
 <template>
   <div>
     <div class="board-row" v-for="(row, index) in board" :key="index">
-      <Square v-for="square in row" :key="square" :square="square" :value="squares[square]" @click="handleClick" />
+      <Square v-for="square in row" :key="square" :square="square" :value="squares[square]" />
     </div>
   </div>
 </template>
@@ -18,11 +18,6 @@ export default {
         [3, 4, 5],
         [6, 7, 8]
       ]
-    }
-  },
-  methods: {
-    handleClick(i) {
-      this.$emit('click', i);
     }
   },
   props: ['squares'],

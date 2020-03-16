@@ -8,9 +8,10 @@
 export default {
   name: 'Square',
   props: ['square', 'value'],
+  inject: ['handleClick'],
   methods: {
     setValue() {
-      this.$emit('click', this.square);
+      this.handleClick(this.square);
     }
   }
 }
